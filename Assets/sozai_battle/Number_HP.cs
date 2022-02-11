@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class Number_AP : MonoBehaviour
+public class Number_HP : MonoBehaviour
 {
     GameObject image;
 
