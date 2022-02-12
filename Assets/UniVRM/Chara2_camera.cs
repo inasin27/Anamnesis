@@ -8,7 +8,7 @@ public class Chara2_camera : MonoBehaviour
     private GameObject chara2;
 
     //プレイヤーからの距離（半径）
-    private float radius = 7.0f;
+    private float radius = 8.0f;
 
     //注視点のオブジェクト
     private GameObject lookat;
@@ -33,7 +33,7 @@ public class Chara2_camera : MonoBehaviour
         //this.transform.position = new Vector3( this.chara2.transform.position.x + (Mathf.Sin( Time.time) * radius), this.transform.position.y, this.chara2.transform.position.z + (Mathf.Cos( Time.time) * radius));
 
         //カメラ座標の更新 ※Yの座標はスルー
-        this.transform.position = new Vector3(this.chara2.transform.position.x + (Mathf.Sin(rotation * Mathf.Deg2Rad) * radius), this.transform.position.y, this.chara2.transform.position.z + (Mathf.Cos(rotation * Mathf.Deg2Rad) * radius));
+        this.transform.position = new Vector3(this.chara2.transform.position.x + (Mathf.Sin(rotation * Mathf.Deg2Rad) * radius), 4f, this.chara2.transform.position.z + (Mathf.Cos(rotation * Mathf.Deg2Rad) * radius));
 
         //注視点（プレイヤー）
         transform.LookAt( this.chara2.transform.position + new Vector3( 0f, 1f, 0f));

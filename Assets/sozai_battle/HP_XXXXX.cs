@@ -15,61 +15,66 @@ public class HP_XXXXX : MonoBehaviour
     public GameObject HP_10000;
 
     //ç≈ëÂHPÅAîºí[Ç»êîÇ…ÇµÇΩ
-    [SerializeField]
     int life = 99999;
-    //åªç›ÇÃHP
     [SerializeField]
-    float currentHP;
-    GameObject hpsystem;
+    int currentHP;
+    int damage = 99;
+    float life2 = 0f;
+    float currentHP2 = 0f;
+
+    public GameObject hpsystem;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        hpsystem = GameObject.Find("Number_HP");
-
+        hpsystem = GameObject.Find("HP");
+        currentHP = life;
+        life2 = life;
     }
     // Update is called once per frame
     void Update()
     {
-        if (life >= 99999)
+
+        if (currentHP <= 99999 && currentHP>=10000)
         {
-            HP_1.GetComponent<Image>().sprite = keta[life % 10];
-            HP_10.GetComponent<Image>().sprite = keta[(life / 10) % 10];
-            HP_100.GetComponent<Image>().sprite = keta[(life / 100) % 10];
-            HP_1000.GetComponent<Image>().sprite = keta[(life / 1000) % 10];
-            HP_10000.GetComponent<Image>().sprite = keta[(life / 10000) % 10];
+            HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];
+            HP_10.GetComponent<Image>().sprite = keta[(currentHP / 10) % 10];
+            HP_100.GetComponent<Image>().sprite = keta[(currentHP / 100) % 10];
+            HP_1000.GetComponent<Image>().sprite = keta[(currentHP / 1000) % 10];
+            HP_10000.GetComponent<Image>().sprite = keta[(currentHP / 10000) % 10];
         }
-        else if (life <= 9999 && life >= 1000)
+        else if (currentHP <= 9999 && currentHP >= 1000)
         {
             Destroy(HP_10000.gameObject);
-            HP_1.GetComponent<Image>().sprite = keta[life % 10];
-            HP_10.GetComponent<Image>().sprite = keta[(life / 10) % 10];
-            HP_100.GetComponent<Image>().sprite = keta[(life / 100) % 10];
-            HP_1000.GetComponent<Image>().sprite = keta[(life / 1000) % 10];
+            HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];
+            HP_10.GetComponent<Image>().sprite = keta[(currentHP / 10) % 10];
+            HP_100.GetComponent<Image>().sprite = keta[(currentHP / 100) % 10];
+            HP_1000.GetComponent<Image>().sprite = keta[(currentHP/ 1000) % 10];
         }
-        else if (life <= 999 && life >= 100)
+        else if (currentHP <= 999 && currentHP >= 100)
         {
             Destroy(HP_10000.gameObject);
             Destroy(HP_1000.gameObject);
-            HP_1.GetComponent<Image>().sprite = keta[life % 10];
-            HP_10.GetComponent<Image>().sprite = keta[(life / 10) % 10];
-            HP_100.GetComponent<Image>().sprite = keta[(life / 100) % 10];
+            HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];
+            HP_10.GetComponent<Image>().sprite = keta[(currentHP / 10) % 10];
+            HP_100.GetComponent<Image>().sprite = keta[(currentHP / 100) % 10];
         }
-        else if (life <= 99 && life >= 10)
+        else if (currentHP<= 99 && currentHP >= 10)
         {
             Destroy(HP_10000.gameObject);
             Destroy(HP_1000.gameObject);
             Destroy(HP_100.gameObject);
-            HP_1.GetComponent<Image>().sprite = keta[life % 10];
-            HP_10.GetComponent<Image>().sprite = keta[(life / 10) % 10];
+            HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];
+            HP_10.GetComponent<Image>().sprite = keta[(currentHP / 10) % 10];
         }
-        else if (life <= 9)
+        else if (currentHP <= 9 && currentHP>=0)
         {
             Destroy(HP_10000.gameObject);
             Destroy(HP_1000.gameObject);
             Destroy(HP_100.gameObject);
             Destroy(HP_10.gameObject);
-            HP_1.GetComponent<Image>().sprite = keta[life % 10];
+            HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];
         }
         else
         {
@@ -77,19 +82,12 @@ public class HP_XXXXX : MonoBehaviour
             Destroy(HP_1000.gameObject);
             Destroy(HP_100.gameObject);
             Destroy(HP_10.gameObject);
-            HP_1.GetComponent<Image>().sprite = keta[life % 0];
+            HP_1.GetComponent<Image>().sprite = keta[0];
         }
-        hpsystem.GetComponent<Number_HP>().HPDown(currentHP, life);
-    }
+        currentHP = currentHP - damage;
+        currentHP2 = currentHP;
 
-    void FixedUpdate()
-    {
-        //currentHPÇ™0à»è„Ç»ÇÁTrue
-        if (0 <= currentHP)
-        {
-            //maxHPÇ©ÇÁïbêîÅiÅ~10ÅjÇà¯Ç¢ÇΩêîÇ™currentHP
-            currentHP =life - Time.time * 10;
-        }
+        hpsystem.GetComponent<Image>().fillAmount = currentHP2 / life2;
     }
-
 }
+
