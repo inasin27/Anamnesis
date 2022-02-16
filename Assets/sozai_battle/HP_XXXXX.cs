@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class HP_XXXXX : MonoBehaviour
 {
+    //insector‚ÅŒ…İ’è‚Å‚«‚éB‰æ‘œ‚ğ“ü‚ê‚é‚Æ•\¦‚³‚ê‚é
     public Sprite[] keta;
-
     public GameObject HP_1;
     public GameObject HP_10;
     public GameObject HP_100;
@@ -18,12 +18,11 @@ public class HP_XXXXX : MonoBehaviour
     int life = 99999;
     [SerializeField]
     int currentHP;
-    int damage = 99;
+    int damage=11;
     float life2 = 0f;
     float currentHP2 = 0f;
 
     public GameObject hpsystem;
-
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +34,6 @@ public class HP_XXXXX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (currentHP <= 99999 && currentHP>=10000)
         {
             HP_1.GetComponent<Image>().sprite = keta[currentHP % 10];

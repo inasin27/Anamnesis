@@ -10,8 +10,11 @@ public class EnemyHP : MonoBehaviour
     int HP = 99999;
     [SerializeField]
     int currentHP;
+    //ダメージ引数
     int damage = 99;
+    //最大HPの引数
     float HP2 = 0f;
+    //現在HPの更新用の引数
     float currentHP2 = 0f;
 
     public GameObject ensystem;
