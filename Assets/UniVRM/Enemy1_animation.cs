@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,9 +7,9 @@ using UnityEngine.AI;
 
 public class Enemy1_animation : MonoBehaviour
 {
-    //“G‚Ìs“®‚ğˆø”u‚ÅŒˆ‚ß‚Ä‚¢‚é
+    //æ•µã®è¡Œå‹•ã‚’å¼•æ•°uã§æ±ºã‚ã¦ã„ã‚‹
     int u;
-    //ƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒRƒ“ƒ|[ƒlƒ“ƒgŠ“¾
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆæ‰€å¾—
     private Rigidbody rb;
     private float Rotate = 0f;
     private float velocityZ = 10f;
@@ -17,12 +17,12 @@ public class Enemy1_animation : MonoBehaviour
     private float times = 0f;
     private int attack = 0;
     
-    //‘€ìƒLƒƒƒ‰‚ÌˆÊ’u‚ğˆø”target‚É‚µ‚Ä’Ç‚¢‚©‚¯‚é
+    //æ“ä½œã‚­ãƒ£ãƒ©ã®ä½ç½®ã‚’å¼•æ•°targetã«ã—ã¦è¿½ã„ã‹ã‘ã‚‹
     [SerializeField]
     public GameObject target;
     private NavMeshAgent agent;
     private Animator animator;
-    //“G‚Æ‘€ìƒLƒƒƒ‰‚Ì‹——£
+    //æ•µã¨æ“ä½œã‚­ãƒ£ãƒ©ã®è·é›¢
     private float aD = 0.5f;
     private float fD = 1f;
 
@@ -39,7 +39,7 @@ public class Enemy1_animation : MonoBehaviour
     }
     private void Update()
     {
-        //“®ìŒŸØ—pBI‚í‚Á‚½‚çÁ‚·‚æ‚¤‚ÉI
+        //å‹•ä½œæ¤œè¨¼ç”¨ã€‚çµ‚ã‚ã£ãŸã‚‰æ¶ˆã™ã‚ˆã†ã«ï¼
 
         for (int i = start; i <= end; i++)
         {
@@ -51,37 +51,37 @@ public class Enemy1_animation : MonoBehaviour
             int u = num[index];
             num.RemoveAt(index);
             var rb = GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezePosition;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            //UŒ‚s“®
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            //æ”»æ’ƒè¡Œå‹•
             if (u == 0)
             {
                 GetComponent<Animator>().SetTrigger("Attack");
                 times = 0;
                 attack = 50;
-                //u = 4;
+                u = 4;
+                Debug.Log("æ”»æ’ƒï¼š" + u);
             }
-            //–‚–@UŒ‚s“®
+            //é­”æ³•æ”»æ’ƒè¡Œå‹•
             else if (u == 1)
             {
                 GetComponent<Animator>().SetTrigger("Attack2");
                 times = 0;
                 attack = 100;
-                //u = 4;
+                u = 4;
+                Debug.Log("é­”æ³•æ”»æ’ƒ" + u);
             }
-            //Idleó‘Ô‚É–ß‚é
+            //IdleçŠ¶æ…‹ã«æˆ»ã‚‹
             else if (u == 2)
             {
                 GetComponent<Animator>().SetTrigger("Idle");
                 times = 0;
-                //u = 4;
+                u = 4;
+                Debug.Log("å¾…æ©ŸçŠ¶æ…‹");
             }
-            //‘€ìƒLƒƒƒ‰‚ÌŠ‚Ü‚ÅˆÚ“®
+            //æ“ä½œã‚­ãƒ£ãƒ©ã®æ‰€ã¾ã§ç§»å‹•
             else if (u == 3)
             {
-                //u = 4;
-                rb.constraints = RigidbodyConstraints.None;
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                u = 4;
                 GetComponent<Animator>().SetTrigger("Walk");
                 agent.SetDestination(target.transform.position);
                 if(agent.remainingDistance<aD)
@@ -94,8 +94,8 @@ public class Enemy1_animation : MonoBehaviour
                     agent.isStopped = false;
                     animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
                 }
-                rb.constraints = RigidbodyConstraints.FreezePosition;
                 times = 0;
+                Debug.Log("ç§»å‹•ã™ã‚‹");
             }
             else if (u == 4)
             {
@@ -108,25 +108,26 @@ public class Enemy1_animation : MonoBehaviour
                 {
                     times += Time.deltaTime;
                 }
+                u = Random.Range(0, 10);
+                Debug.Log("å¾…ã£ã¦ã‚‹çŠ¶æ…‹");
             }
-            //˜A‘±‹ßÚUŒ‚
+            //é€£ç¶šè¿‘æ¥æ”»æ’ƒ
             if (u == 5)
             {
                 GetComponent<Animator>().SetTrigger("Attack");
                 GetComponent<Animator>().SetTrigger("Attack_2");
                 times = 0;
                 attack = 100;
-                //u = 4;
+                u = 4;
+                Debug.Log("é€£ç¶šæ”»æ’ƒ");
             }
             else
             {
                 u = Random.Range(0, 10);
+                Debug.Log("é€£ç¶šæ”»æ’ƒã‚¨ãƒ©ãƒ¼");
             }
-
-            Debug.Log(u);
         }
     }
-    //‘€ìƒLƒƒƒ‰‚É’Ç”ö‚·‚éƒXƒNƒŠƒvƒg
     private void OnAnimatorIK()
     {
         var weight = Vector3.Dot(transform.forward.normalized, target.transform.position - transform.position);
