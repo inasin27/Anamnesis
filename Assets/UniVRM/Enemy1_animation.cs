@@ -15,8 +15,16 @@ public class Enemy1_animation : MonoBehaviour
     private float velocityZ = 10f;
     private float velocityX = 10f;
     private float times = 0f;
-    private int attack = 0;
-    
+    public int Eattack = 0;
+    public int attack = 0;
+
+    //ダメージ計算用に別スクリプトの情報を所得
+    public int E1damage
+    {
+        get { return this.E1damage; }
+        set { this.E1damage = value; }
+    }
+
     //操作キャラの位置を引数targetにして追いかける
     [SerializeField]
     public GameObject target;
@@ -31,11 +39,15 @@ public class Enemy1_animation : MonoBehaviour
     List<int> num = new List<int>();
 
     private void Start()
-    { 
-        u =5;
+    {
+        u = 5;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         target = GameObject.Find("Chara2");
+
+        //ダメージ計算用に別スクリプトの引数を代入
+
+
     }
     private void Update()
     {
@@ -57,18 +69,18 @@ public class Enemy1_animation : MonoBehaviour
             {
                 GetComponent<Animator>().SetTrigger("Attack");
                 times = 0;
-                attack = 50;
+                Eattack = 50;
                 u = 4;
-                Debug.Log("攻撃：" + u);
+                // Debug.Log("攻撃：" + u);
             }
             //魔法攻撃行動
             else if (u == 1)
             {
                 GetComponent<Animator>().SetTrigger("Attack2");
                 times = 0;
-                attack = 100;
+                Eattack = 100;
                 u = 4;
-                Debug.Log("魔法攻撃" + u);
+                // Debug.Log("魔法攻撃" + u);
             }
             //Idle状態に戻る
             else if (u == 2)
@@ -76,7 +88,7 @@ public class Enemy1_animation : MonoBehaviour
                 GetComponent<Animator>().SetTrigger("Idle");
                 times = 0;
                 u = 4;
-                Debug.Log("待機状態");
+                //Debug.Log("待機状態");
             }
             //操作キャラの所まで移動
             else if (u == 3)
@@ -84,18 +96,18 @@ public class Enemy1_animation : MonoBehaviour
                 u = 4;
                 GetComponent<Animator>().SetTrigger("Walk");
                 agent.SetDestination(target.transform.position);
-                if(agent.remainingDistance<aD)
+                if (agent.remainingDistance < aD)
                 {
                     agent.isStopped = true;
-                    animator.SetFloat("Speed", 0f);
+                    animator.SetFloat("Speed", 3f);
                 }
-                else if(agent.remainingDistance>fD)
+                else if (agent.remainingDistance > fD)
                 {
                     agent.isStopped = false;
                     animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
                 }
                 times = 0;
-                Debug.Log("移動する");
+                //Debug.Log("移動する");
             }
             else if (u == 4)
             {
@@ -109,7 +121,7 @@ public class Enemy1_animation : MonoBehaviour
                     times += Time.deltaTime;
                 }
                 u = Random.Range(0, 10);
-                Debug.Log("待ってる状態");
+                //Debug.Log("待ってる状態");
             }
             //連続近接攻撃
             if (u == 5)
@@ -117,25 +129,36 @@ public class Enemy1_animation : MonoBehaviour
                 GetComponent<Animator>().SetTrigger("Attack");
                 GetComponent<Animator>().SetTrigger("Attack_2");
                 times = 0;
-                attack = 100;
+                Eattack = 100;
                 u = 4;
-                Debug.Log("連続攻撃");
+                //Debug.Log("連続攻撃");
             }
             else
             {
                 u = Random.Range(0, 10);
-                Debug.Log("連続攻撃エラー");
+                //Debug.Log("連続攻撃エラー");
             }
         }
     }
     private void OnAnimatorIK()
     {
         var weight = Vector3.Dot(transform.forward.normalized, target.transform.position - transform.position);
-        if(weight<0)
+        if (weight < 0)
         {
             weight = 0;
         }
         animator.SetLookAtWeight(weight, 0f, 1f, 0f, 0f);
         animator.SetLookAtPosition(target.transform.position + Vector3.up * 1.5f);
     }
+
+    //三日月のオブジェクトと衝突した時、オブジェクトを消す条件
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "skill")
+        {
+            Destroy(collision.gameObject);
+            E1damage = 150;
+        }
+    }
+
 }

@@ -15,9 +15,11 @@ public class AP_XXX : MonoBehaviour
     int AP = 100;
     [SerializeField]
     int currentAP;
-    int waste=1;
+    int waste=0;
     float AP2 = 0f;
     float currentAP2 = 0f;
+
+    int skill;
 
     public GameObject apsystem;
 
@@ -61,5 +63,13 @@ public class AP_XXX : MonoBehaviour
         currentAP2 = currentAP;
 
         apsystem.GetComponent<Image>().fillAmount = (currentAP2 / AP2) * 0.25f ;
+    }
+
+
+    //スキルを使用した時、APバーと数値が増減するようにする
+    public void APEnable()
+    {
+        GameObject.Find("Chara2").GetComponent<Chara2_animation>();
+
     }
 }

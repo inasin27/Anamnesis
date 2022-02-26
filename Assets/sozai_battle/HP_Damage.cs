@@ -19,9 +19,10 @@ public class HP_Damage : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("hit Player");
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("hit Player");
+            
             //currentHP -= collision.gameObject.GetComponent<Enemy1_animation>().attack;
         }
         if(currentHP<=0)

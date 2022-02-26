@@ -15,10 +15,10 @@ public class HP_XXXXX : MonoBehaviour
     public GameObject HP_10000;
 
     //Å‘åHPA”¼’[‚È”‚É‚µ‚½
-    int life = 99999;
+    int life = 999;
     [SerializeField]
     int currentHP;
-    int damage=11;
+    int damage=0;
     float life2 = 0f;
     float currentHP2 = 0f;
 

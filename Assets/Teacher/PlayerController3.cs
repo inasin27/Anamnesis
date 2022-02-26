@@ -19,6 +19,12 @@ public class PlayerController3 : MonoBehaviour
 	//地面に接触
 	private bool isGround = false;
 
+	//プレハブ
+	public GameObject SpherePrefab;
+
+	//敵オブジェクト
+	private GameObject Enemy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +33,9 @@ public class PlayerController3 : MonoBehaviour
 
 		//Rigidbodyコンポーネントを取得
 		this.myRigidbody = GetComponent<Rigidbody>(); 
+
+		//敵のオブジェクトを取得
+		Enemy = GameObject.Find( "Enemy");
     }
 
     // Update is called once per frame
@@ -91,6 +100,19 @@ public class PlayerController3 : MonoBehaviour
 		} else if( Input.GetKey( KeyCode.Alpha7))
 		{
 			this.myAnimator.SetTrigger( "DieB");
+		}
+
+		// Zキーで攻撃の生成
+        if( Input.GetKeyDown( KeyCode.Z))
+		{
+			//インスタンス
+            GameObject Sphere = Instantiate( SpherePrefab);
+			//生成する座標 ※プレイヤー足元から上へ1メートルの位置
+            Sphere.transform.position = this.transform.position + new Vector3(0f, 1f, 0f);
+			//敵の方向へ向ける
+			Sphere.transform.LookAt( Enemy.transform);
+			//自身、敵の方へ向く
+			this.transform.LookAt( Enemy.transform);
 		}
     }
 
