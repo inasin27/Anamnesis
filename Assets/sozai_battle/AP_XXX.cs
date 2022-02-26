@@ -15,9 +15,8 @@ public class AP_XXX : MonoBehaviour
     int AP = 100;
     [SerializeField]
     int currentAP;
-    int waste=0;
     float AP2 = 0f;
-    float currentAP2 = 0f;
+    static public float currentAP2 = 0f;
 
     int skill;
 
@@ -59,8 +58,19 @@ public class AP_XXX : MonoBehaviour
             Destroy(AP_10.gameObject);
             AP_1.GetComponent<Image>().sprite = keta[0];
         }
-        currentAP = currentAP - waste;
-        currentAP2 = currentAP;
+        if (currentAP>=Chara2_animation.skill1)
+        {
+            currentAP = currentAP - Chara2_animation.skill1;
+            currentAP2 = currentAP;
+        }
+        else
+        {
+            Debug.Log("MP‚ª‘«‚è‚È‚¢");
+        }
+        if(Chara2_animation.skill1>=0)
+        {
+            Chara2_animation.skill1 = 0;
+        }
 
         apsystem.GetComponent<Image>().fillAmount = (currentAP2 / AP2) * 0.25f ;
     }

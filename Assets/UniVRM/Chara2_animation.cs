@@ -17,7 +17,7 @@ public class Chara2_animation : MonoBehaviour
     private Rigidbody rb;
 
     //Á”ïap‚Ìˆø”
-    int skill1 = 0;
+    static public int skill1 = 0;
 
 
     // Use this for initialization
@@ -107,13 +107,16 @@ public class Chara2_animation : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             //Z‚ğ‰Ÿ‚µ‚½‚çƒXƒLƒ‹‚P‚ğ”­“®‚·‚é
-            GetComponent<Animator>().SetTrigger("Skill");
-            GameObject Moon = Instantiate(MoonPrefab);
-            Moon.transform.position = this.transform.position + new Vector3(0f, 0f, 0f);
-            Moon.transform.LookAt(Enemy.transform);
-            this.transform.LookAt(Enemy.transform);
-            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-            skill1 = 15;
+            if (AP_XXX.currentAP2 >= 15)
+            {
+                GetComponent<Animator>().SetTrigger("Skill");
+                GameObject Moon = Instantiate(MoonPrefab);
+                Moon.transform.position = this.transform.position + new Vector3(0f, 0f, 0f);
+                Moon.transform.LookAt(Enemy.transform);
+                this.transform.LookAt(Enemy.transform);
+                rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+                skill1 = 15;
+            }
         }
         else
         {

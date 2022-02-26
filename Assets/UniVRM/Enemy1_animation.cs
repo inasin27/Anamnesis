@@ -19,12 +19,8 @@ public class Enemy1_animation : MonoBehaviour
     public int attack = 0;
 
     //ダメージ計算用に別スクリプトの情報を所得
-    public int E1damage
-    {
-        get { return this.E1damage; }
-        set { this.E1damage = value; }
-    }
-
+    static public int E1damage = 0;
+ 
     //操作キャラの位置を引数targetにして追いかける
     [SerializeField]
     public GameObject target;
@@ -157,7 +153,11 @@ public class Enemy1_animation : MonoBehaviour
         if (collision.gameObject.tag == "skill")
         {
             Destroy(collision.gameObject);
-            E1damage = 150;
+            E1damage = Random.Range(130,150);
+        }
+        else if(collision.gameObject.tag=="Eattack and skill")
+        {
+            E1damage = 5000;
         }
     }
 

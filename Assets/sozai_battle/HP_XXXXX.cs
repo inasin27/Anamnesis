@@ -20,7 +20,7 @@ public class HP_XXXXX : MonoBehaviour
     int currentHP;
     int damage=0;
     float life2 = 0f;
-    float currentHP2 = 0f;
+    static public float currentHP2 = 0f;
 
     public GameObject hpsystem;
 

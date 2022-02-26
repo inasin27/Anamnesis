@@ -15,13 +15,10 @@ public class EnemyHP : MonoBehaviour
     //最大HPの引数
     float HP2 = 0f;
     //現在HPの更新用の引数
-    float currentHP2 = 0f;
+    static public int currentHP2 = 0;
 
     public GameObject ensystem;
-
-    //ダメージ計算用にEnemy1_animationからダメージ数所得
-    public Enemy1_animation Enemy1;
-
+    public GameObject Enemy;
 
     // Start is called before the first frame update
     void Start()
@@ -29,24 +26,28 @@ public class EnemyHP : MonoBehaviour
         ensystem = GameObject.Find("EnemyHP");
         currentHP = HP;
         HP2 = HP;
+        Enemy = GameObject.Find("Enemy1");
 
     }
     // Update is called once per frame
     void Update()
     {
-        //ダメージ計算用にEnemy1_animationからダメージ数所得
-        //Edamage = Enemy1.E1damage;
-
+        Edamage = Enemy1_animation.E1damage;
 
         currentHP = currentHP - Edamage;
         currentHP2 = currentHP;
 
-        //if(Enemy1.E1damage>=0)
+        if(Enemy1_animation.E1damage>=0)
         {
-            //Enemy1.E1damage = 0;
+            Enemy1_animation.E1damage = 0;
         }
-
         ensystem.GetComponent<Image>().fillAmount = currentHP2 / HP2;
+
+        if(currentHP2<=0)
+        {
+            Destroy(Enemy);
+        }
     }
+
 }
 
