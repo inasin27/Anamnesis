@@ -27,7 +27,7 @@ public class Enemy1_animation : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     //敵と操作キャラの距離
-    private float aD = 0.5f;
+    private float aD = 1.5f;
     private float fD = 1f;
 
     int start = 0;
@@ -95,7 +95,7 @@ public class Enemy1_animation : MonoBehaviour
                 if (agent.remainingDistance < aD)
                 {
                     agent.isStopped = true;
-                    animator.SetFloat("Speed", 3f);
+                    animator.SetFloat("Speed", 2.5f);
                 }
                 else if (agent.remainingDistance > fD)
                 {
@@ -153,11 +153,17 @@ public class Enemy1_animation : MonoBehaviour
         if (collision.gameObject.tag == "skill")
         {
             Destroy(collision.gameObject);
-            E1damage = Random.Range(130,150);
+            E1damage = Random.Range(130,200);
         }
-        else if(collision.gameObject.tag=="Eattack and skill")
+        else if(collision.gameObject.tag=="skill1")
         {
-            E1damage = 5000;
+            Destroy(collision.gameObject);
+            E1damage =Random.Range(20,60);
+        }
+        else if(collision.gameObject.tag=="skill2")
+        {
+            Destroy(collision.gameObject);
+            E1damage = Random.Range(30, 90);
         }
     }
 

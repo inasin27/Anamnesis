@@ -14,18 +14,14 @@ public class HP_Damage : MonoBehaviour
     public GameObject HP_1000;
     public GameObject HP_10000;
 
-    [SerializeField]
-    private int currentHP;
-
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("hit Player");
         if (collision.gameObject.tag == "Enemy")
         {
             
             //currentHP -= collision.gameObject.GetComponent<Enemy1_animation>().attack;
         }
-        if(currentHP<=0)
+        if(HP_XXXXX.currentHP2<=0)
         {
             GetComponent<Animator>().SetTrigger("Die");
         }

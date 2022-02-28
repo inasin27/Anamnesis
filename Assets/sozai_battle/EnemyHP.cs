@@ -19,6 +19,11 @@ public class EnemyHP : MonoBehaviour
 
     public GameObject ensystem;
     public GameObject Enemy;
+    private bool isEnd = false;
+    private GameObject Text;
+    public GameObject Chara;
+    [SerializeField]
+    public GameObject Ex;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +32,7 @@ public class EnemyHP : MonoBehaviour
         currentHP = HP;
         HP2 = HP;
         Enemy = GameObject.Find("Enemy1");
-
+        this.Text = GameObject.Find("CLEARText");
     }
     // Update is called once per frame
     void Update()
@@ -46,6 +51,11 @@ public class EnemyHP : MonoBehaviour
         if(currentHP2<=0)
         {
             Destroy(Enemy);
+            isEnd = true;
+            Chara.GetComponent<Chara2_animation>().enabled = false;
+            Chara.GetComponent<Animator>().SetTrigger("Stand");
+            Instantiate(Ex,Enemy.transform.position,Quaternion.identity);
+            this.Text.GetComponent<Text>().text = "Game Clear";
         }
     }
 

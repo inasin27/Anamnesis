@@ -15,101 +15,105 @@ public class EHP_Damage : MonoBehaviour
     public GameObject EHP_D10000;
 
     private float time;
+    public GameObject Enemy;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Enemy = GameObject.Find("Enemy1");
+        EHP_D10000.SetActive(false);
+        EHP_D1000.SetActive(false);
+        EHP_D100.SetActive(false);
+        EHP_D10.SetActive(false);
+        EHP_D1.SetActive(false);
     }
     // Update is called once per frame
     void Update()
     {
-        if (EnemyHP.currentHP2 <= 99999 && EnemyHP.currentHP2 >= 10000)
+        EHP_D10000.transform.position = Enemy.transform.position + new Vector3(2, 2, 0);
+        EHP_D1000.transform.position = Enemy.transform.position + new Vector3(1, 2, 0);
+        EHP_D100.transform.position = Enemy.transform.position + new Vector3(0,2, 0);
+        EHP_D10.transform.position = Enemy.transform.position + new Vector3(-1, 2, 0);
+        EHP_D1.transform.position = Enemy.transform.position + new Vector3(-2, 2, 0);
+
+        if (Enemy1_animation.E1damage <= 99999 && Enemy1_animation.E1damage >= 10000)
         {
+            EHP_D10000.SetActive(true);
+            EHP_D1000.SetActive(true);
+            EHP_D100.SetActive(true);
+            EHP_D10.SetActive(true);
+            EHP_D1.SetActive(true);
             EHP_D1.GetComponent<Image>().sprite = keta[EnemyHP.currentHP2 % 10];
             EHP_D10.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 10) % 10];
             EHP_D100.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 100) % 10];
             EHP_D1000.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 1000) % 10];
             EHP_D10000.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 10000) % 10];
-            time = Time.time;
-            if (Time.time >= 1)
+            time += 1;
+            if (time>= 10)
             {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
+                EHP_D10000.SetActive(false);
+                EHP_D1000.SetActive(false);
+                EHP_D100.SetActive(false);
+                EHP_D10.SetActive(false);
+                EHP_D1.SetActive(false);
             }
         }
-        else if (EnemyHP.currentHP2 <= 9999 && EnemyHP.currentHP2 >= 1000)
+        else if (Enemy1_animation.E1damage <= 9999 && Enemy1_animation.E1damage >= 1000)
         {
+            EHP_D1000.SetActive(true);
+            EHP_D100.SetActive(true);
+            EHP_D10.SetActive(true);
+            EHP_D1.SetActive(true);
             EHP_D1.GetComponent<Image>().sprite = keta[EnemyHP.currentHP2 % 10];
             EHP_D10.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 10) % 10];
             EHP_D100.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 100) % 10];
             EHP_D1000.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 1000) % 10];
-            time = Time.time;
-            if (Time.time >= 1)
+            time += 1;
+            if (time >= 10)
             {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
+                EHP_D1000.SetActive(false);
+                EHP_D100.SetActive(false);
+                EHP_D10.SetActive(false);
+                EHP_D1.SetActive(false);
             }
         }
-        else if (EnemyHP.currentHP2 <= 999 && EnemyHP.currentHP2 >= 100)
+        else if (Enemy1_animation.E1damage <= 999 && Enemy1_animation.E1damage >= 100)
         {
+            EHP_D100.SetActive(true);
+            EHP_D10.SetActive(true);
+            EHP_D1.SetActive(true);
             EHP_D1.GetComponent<Image>().sprite = keta[EnemyHP.currentHP2 % 10];
             EHP_D10.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 10) % 10];
             EHP_D100.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 100) % 10];
-            time = Time.time;
-            if (Time.time >= 1)
+            time += 1;
+            if (time >= 10)
             {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
+                EHP_D100.SetActive(false);
+                EHP_D10.SetActive(false);
+                EHP_D1.SetActive(false);
             }
         }
-        else if (EnemyHP.currentHP2 <= 99 && EnemyHP.currentHP2 >= 10)
+        else if (Enemy1_animation.E1damage <= 99 && Enemy1_animation.E1damage >= 10)
         {
+            EHP_D10.SetActive(true);
+            EHP_D1.SetActive(true);
             EHP_D1.GetComponent<Image>().sprite = keta[EnemyHP.currentHP2 % 10];
             EHP_D10.GetComponent<Image>().sprite = keta[(EnemyHP.currentHP2 / 10) % 10];
-            time = Time.time;
-            if (Time.time >= 1)
+            time +=1;
+            if (time >= 10)
             {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
+                EHP_D10.SetActive(false);
+                EHP_D1.SetActive(false);
             }
         }
-        else if (EnemyHP.currentHP2 <= 9 && EnemyHP.currentHP2 >= 0)
+        else if (Enemy1_animation.E1damage <= 9 && Enemy1_animation.E1damage >= 1)
         {
+            EHP_D1.SetActive(true);
             EHP_D1.GetComponent<Image>().sprite = keta[EnemyHP.currentHP2 % 10];
-            time = Time.time;
-            if (Time.time >= 1)
+            time += 1; 
+            if (time >= 10)
             {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
-            }
-        }
-        else
-        {
-            EHP_D1.GetComponent<Image>().sprite = keta[0];
-            time = Time.time;
-            if (Time.time >= 1)
-            {
-                Destroy(EHP_D10000.gameObject);
-                Destroy(EHP_D1000.gameObject);
-                Destroy(EHP_D100.gameObject);
-                Destroy(EHP_D10.gameObject);
-                Destroy(EHP_D1.gameObject);
+                EHP_D1.SetActive(false);
             }
         }
     }

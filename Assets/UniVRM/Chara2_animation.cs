@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Chara2_animation : MonoBehaviour
 {
     //アニメーションをコンポーネント所得
@@ -16,9 +17,16 @@ public class Chara2_animation : MonoBehaviour
     public GameObject Enemy;
     private Rigidbody rb;
 
+    //攻撃用のエフェクト達宣言
+    public GameObject Skill1;
+    public GameObject Skill2;
+    public GameObject Skill3;
+    
     //消費apの引数
-    static public int skill1 = 0;
-
+    static public int skill = 0;
+    bool time;
+    float times;
+    float timee;
 
     // Use this for initialization
     void Start()
@@ -95,19 +103,37 @@ public class Chara2_animation : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A))
         {
             //Aを押したら攻撃
-            GetComponent<Animator>().SetTrigger("Attack");
-            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            if (AP_XXX.currentAP2 >= 2)
+            {
+                GetComponent<Animator>().SetTrigger("Attack");
+                Instantiate(Skill1, this.transform.position, Quaternion.identity);
+                Skill1.transform.position = this.transform.position + new Vector3(0f, 0f, 0f);
+                Skill1.transform.LookAt(Enemy.transform);
+                this.transform.LookAt(Enemy.transform);
+                rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+                skill = 2;
+                AP_XXX.AP3 = 0;
+                time = !time;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             //Sを押したら攻撃
             GetComponent<Animator>().SetTrigger("Attack1-2");
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            Instantiate(Skill2, this.transform.position, Quaternion.identity);
+            Skill2.transform.position = this.transform.position + new Vector3(0f, 0f, 0f);
+            Skill2.transform.LookAt(Enemy.transform);
+            this.transform.LookAt(Enemy.transform);
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            skill = 3;
+            AP_XXX.AP3 = 0;
+            time = !time;
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             //Zを押したらスキル１を発動する
-            if (AP_XXX.currentAP2 >= 15)
+            if (AP_XXX.currentAP2 >= 11)
             {
                 GetComponent<Animator>().SetTrigger("Skill");
                 GameObject Moon = Instantiate(MoonPrefab);
@@ -115,7 +141,9 @@ public class Chara2_animation : MonoBehaviour
                 Moon.transform.LookAt(Enemy.transform);
                 this.transform.LookAt(Enemy.transform);
                 rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-                skill1 = 15;
+                skill = 11;
+                AP_XXX.AP3 = 0;
+                time = !time;
             }
         }
         else
@@ -123,6 +151,25 @@ public class Chara2_animation : MonoBehaviour
             GetComponent<Animator>().SetTrigger("Stand");
             this.myRigidbody.velocity = new Vector3(0, 0, 0);
         }
+        if (time)
+        {
+            times = Time.time;
+        }
+        else
+        {
+            timee = Time.time - times;
+        }
+        if (timee >= 2)
+        {
+            AP_XXX.AP3 = 1;
+        }
+        if (HP_XXXXX.currentHP2 <= 0)
+        {
+            GetComponent<Animator>().SetTrigger("Die");
+            this.myRigidbody.velocity = new Vector3(0, 0, 0);
+            this.enabled = false;
+        }
+
 
     }
     //オブジェクトと衝突した時、オブジェクトを消す条件

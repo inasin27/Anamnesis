@@ -14,8 +14,9 @@ public class AP_XXX : MonoBehaviour
 
     int AP = 100;
     [SerializeField]
-    int currentAP;
-    float AP2 = 0f;
+    static public int currentAP;
+    int AP2 = 0;
+    static public int AP3=1;
     static public float currentAP2 = 0f;
 
     int skill;
@@ -34,42 +35,42 @@ public class AP_XXX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentAP >= 100)
+        currentAP = currentAP + AP3;
+        if (currentAP>= 100)
         {
+            currentAP = 100;
+            AP_100.SetActive(true);
             AP_1.GetComponent<Image>().sprite = keta[currentAP % 10];
             AP_10.GetComponent<Image>().sprite = keta[(currentAP / 10) % 10];
             AP_100.GetComponent<Image>().sprite = keta[(currentAP / 100) % 10];
         }
         else if (currentAP <= 99 && currentAP >= 10)
         {
-            Destroy(AP_100.gameObject);
+            AP_100.SetActive(false);
+            AP_10.SetActive(true);
             AP_1.GetComponent<Image>().sprite = keta[currentAP % 10];
             AP_10.GetComponent<Image>().sprite = keta[(currentAP / 10) % 10];
         }
         else if (currentAP <= 9 && currentAP>=0)
         {
-            Destroy(AP_100.gameObject);
-            Destroy(AP_10.gameObject);
+            AP_100.SetActive(false);
+            AP_10.SetActive(false);
             AP_1.GetComponent<Image>().sprite = keta[currentAP % 10];
         }
         else
         {
-            Destroy(AP_100.gameObject);
-            Destroy(AP_10.gameObject);
+            AP_100.SetActive(false);
+            AP_10.SetActive(false);
             AP_1.GetComponent<Image>().sprite = keta[0];
         }
-        if (currentAP>=Chara2_animation.skill1)
+        if (currentAP>=Chara2_animation.skill)
         {
-            currentAP = currentAP - Chara2_animation.skill1;
+            currentAP = currentAP - Chara2_animation.skill;
             currentAP2 = currentAP;
         }
-        else
+        if(Chara2_animation.skill>=0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢");
-        }
-        if(Chara2_animation.skill1>=0)
-        {
-            Chara2_animation.skill1 = 0;
+            Chara2_animation.skill = 0;
         }
 
         apsystem.GetComponent<Image>().fillAmount = (currentAP2 / AP2) * 0.25f ;
